@@ -1,14 +1,14 @@
 var cb = cb || {};
 
 window.onload = function () {
-	
+
 	cb.flickr = new cb.Flickr();
 	cb.imageviewer = new cb.ImageViewer();
 	cb.imgmanager = new cb.ImgManager();
 	cb.view = new cb.View();
-	
+
 };
 
 window.onerror = function (errorMsg, url, lineNumber) {
-    //alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
-}
+	//alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+};

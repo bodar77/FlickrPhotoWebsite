@@ -1,10 +1,10 @@
 			//http://ariya.ofilabs.com/2013/11/javascript-kinetic-scrolling-part-2.html
-			
+
 			var cb = cb || {};
-			
+
 			cb.Slider = function(){
 				var _this = this;
-				
+
 				this.view = document.getElementById('slider');
 				this.container = $('.cbp-container');
 				this.overlay = document.getElementById('overlay');
@@ -12,29 +12,29 @@
 				this.screenWidth;
 				this.screenHeight;
 				this.max;
-				
+
 				// Add event listener for onresize that adds a class of disabled whilst the window is being resized
 				$(window).on('resize', $.proxy(this.resize, this));
 
 				this.screenSize();
-				
+
 				if(this.screenWidth > this.container.width()) {
 					this.container.width('100%');
 					return false;
 				}
-				
+
 				this.imgCount = $('.item').length;
 				this.offset = this.min = 0;
 				this.pressed = false;
-				this.timeConstant = 325; // ms	
+				this.timeConstant = 325; // ms
 				this.velocity;
 				this.amplitude;
-				this.ticker;			
-				
+				this.ticker;
+
 				this.init();
 
 				this.addHandlers();
-				
+
 				this.indicator = document.getElementById('indicator');
 				this.relative = (innerWidth - 30) / this.max;
 
@@ -48,17 +48,17 @@
 					return true;
 				});
 			};
-			
+
 			cb.Slider.prototype = {
 				init: function() {
 					// get device dimentions, calculate width and height of each image as a percentage.
-					// 
+					//
 					this.container.width(parseInt(getComputedStyle(document.getElementById('item1')).width, 10) * this.imgCount);
 					this.snap = parseInt(getComputedStyle(document.getElementById('item1')).width, 10);
 					this.overlay.style.left = (2 * this.snap) + 'px';
 				},
 				addHandlers: function() {
-					var $view = $(this.view)
+					var $view = $(this.view);
 					var supportsTouch = 'ontouchstart' in document;
 					if (supportsTouch) {
 						this.view.addEventListener("touchstart", $.proxy(this.tap, this), false);
@@ -71,11 +71,11 @@
 						$view.on('mouseup', $.proxy(this.release, this));
 					}
 
-					
+
 				},
 				removeHandlers: function() {
-					var $view = $(this.view)
-				
+					var $view = $(this.view);
+
 					var supportsTouch = 'ontouchstart' in document;
 					if (supportsTouch) {
 						this.view.removeventListener("touchstart", $.proxy(this.tap, this), false);
@@ -104,7 +104,7 @@
 					this.max = parseInt(getComputedStyle(document.getElementById('slider')).width, 10) - window.innerWidth;
 					this.relative = (window.innerWidth - 30) / this.max;
 				 },
-				
+
 				scroll: function(x) {
 					this.offset = (x > this.max) ? this.max : (x < this.min) ? this.min : x;
 					this.view.style[xform] = 'translateX(' + (-this.offset) + 'px)';
@@ -126,7 +126,7 @@
 
 				autoScroll: function() {
 					var elapsed, delta;
-					
+
 					if (this.amplitude) {
 						elapsed = Date.now() - this.timestamp;
 						delta = -this.amplitude * Math.exp(-elapsed / this.timeConstant);
@@ -182,12 +182,12 @@
 					this.amplitude = this.target - this.offset;
 					this.timestamp = Date.now();
 					requestAnimationFrame($.proxy(this.autoScroll,this));
-					
+
 					e.preventDefault();
 					e.stopPropagation();
 					return false;
 				},
-				
+
 				resized: function() {
 					var that = this;
 					this.init();
@@ -196,7 +196,7 @@
 					this.view.style[xform] = 'translateX(0px)';
 					this.indicator.style[xform] = 'translateX(0px)';
 					this.screenSize();
-					
+
 					if(this.screenWidth > this.container.width()) {
 						this.container.width('100%');
 						this.removeHandlers();
@@ -205,12 +205,12 @@
 					{
 						this.addHandlers();
 					}
-					
+
 					if(this.view.classList.contains("disabled")) {
 						this.view.classList.remove("disabled");
 					}
 				},
-				
+
 				resize: function(e) {
 					var that = this;
 					clearTimeout(this.resizeFinished);
